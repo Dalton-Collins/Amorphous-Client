@@ -18,6 +18,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -247,7 +248,7 @@ public class fxDisplay extends Application {
     		setPlayerDamageButton(boardLayout);
     	}
     	for(DisplayMinion m: dgs.friendlyFieldMinions){
-    		Button card = minionToButton.convertForField(m);
+    		Button card = minionToButton.convertForField(m, 0);
     		GridPane gridPane = (GridPane) boardLayout.getCenter();
     		HBox bottomFieldHBox = (HBox) gridPane.getChildren().get(0);
     		bottomFieldHBox.getChildren().add(card);	
@@ -255,7 +256,7 @@ public class fxDisplay extends Application {
     	}
     	
     	for(DisplayMinion m: dgs.enemyFieldMinions){
-    		Button card = minionToButton.convertForField(m);
+    		Button card = minionToButton.convertForField(m, 1);
     		GridPane gridPane = (GridPane) boardLayout.getCenter();
     		HBox topFieldHBox = (HBox) gridPane.getChildren().get(1);
     		topFieldHBox.getChildren().add(card);
@@ -288,6 +289,17 @@ public class fxDisplay extends Application {
     		bottomHBox.getChildren().add(card);
     	}
     	
+    	for(int i = 0; i < dgs.enemyHandSize; i++){
+    		Rectangle rect = new Rectangle(20,20,200,105);
+    	    
+    	    rect.setArcHeight(15);
+    	    rect.setArcWidth(15);
+    	    
+    	    Color c = Color.web("#ee1122");
+    	    rect.setFill(c);
+    		HBox topHBox = (HBox) boardLayout.getTop();
+    		topHBox.getChildren().add(rect);
+    	}
     	/*
     	for(Minion m : GameState.getGameState().players.get(1).hand.cards){
     		Button card = minionToButton.convertForHand(m);

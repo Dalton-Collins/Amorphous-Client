@@ -26,15 +26,18 @@ public class MinionToButton {
 	}
 	
 	//this button is on the field and can attack
-	public Button convertForField(DisplayMinion m){
+	public Button convertForField(DisplayMinion m, int color){
 		
 		String cardText = "";
 		cardText = cardText + m.name + " Cost " + m.cost + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText);
 		cb.minion = m;
-		cb.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
-		
+		if(color == 0){
+			cb.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
+		}else{
+			cb.setStyle("-fx-font: 20 arial; -fx-base: #ee1122;");
+		}
 		cb.setOnAction(fxd.clientAttackHandler);
 		cb.setOnMouseEntered(fxd.cardViewHandler);
 		cb.setOnMouseExited(fxd.cardViewHandler);

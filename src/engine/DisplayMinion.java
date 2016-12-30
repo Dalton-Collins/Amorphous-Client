@@ -20,4 +20,6 @@ public class DisplayMinion implements Serializable{
 	public int maxAttacks = 1;
 	boolean summoningSickness;
 	
+	public int cardPosition;
+	
 }
