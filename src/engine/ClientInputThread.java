@@ -14,16 +14,20 @@ public class ClientInputThread extends Thread{
 	
 	Client client;
 	Socket socket;
+	String host;
+	int port;
 	
-	ClientInputThread(fxDisplay fxdd, Socket sockett, Client clientt) throws IOException{
+	ClientInputThread(fxDisplay fxdd, Client clientt, String hostt, int portt) throws IOException{
 		fxd = fxdd;
 		client = clientt;
-		socket = sockett;
+		host = hostt;
+		port = portt;
 	}
 	
 	public void run(){
 		
 		try {
+			Socket socket = new Socket(host, port);
 			ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 			while(true){
 				DisplayGameState dgs = (DisplayGameState)objectInputStream.readObject();

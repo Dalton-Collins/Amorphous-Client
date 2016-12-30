@@ -55,7 +55,7 @@ public class Client {
 		Socket socket = new Socket(host, port);
 		oos = new ObjectOutputStream(socket.getOutputStream());
 		
-		clientInputThread = new ClientInputThread(fxd, socket, this);
+		clientInputThread = new ClientInputThread(fxd, this, host, port);
 		clientInputThread.start();
 	}
 	

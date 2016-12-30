@@ -140,8 +140,10 @@ public class fxDisplay extends Application {
     	BorderPane boardLayout = (BorderPane) boardStack.getChildren().get(0);
     	Scene boardScene = new Scene(boardStack, 1200, 1000);
     	
-    	//buttons 
-    	setEndTurnButton(boardLayout);
+    	//buttons
+    	if(dgs.yourTurn){
+    		setEndTurnButton(boardLayout);
+    	}
         
         //labels
         //update mana/life

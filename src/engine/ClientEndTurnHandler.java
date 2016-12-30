@@ -1,7 +1,5 @@
 package engine;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
