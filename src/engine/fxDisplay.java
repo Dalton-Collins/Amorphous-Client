@@ -173,11 +173,7 @@ public class fxDisplay extends Application {
         cancelEffectSelection.setOnAction(new EventHandler<ActionEvent>(){
         	public void handle(ActionEvent event) {
         		//this needs to send a message to the servers gamestate
-        		//with the selected affect target
-        		GameCommand gc = new GameCommand("affectTarget");
-        		CardButton cb = (CardButton)event.getSource();
-        		gc.displayMinion1 = cb.minion;
-				client.write(gc);
+        		//to tell it to ignore the affect
         		/*
         		GameState gs = GameState.getGameState();
         		gs.selectingAffectTarget = false;

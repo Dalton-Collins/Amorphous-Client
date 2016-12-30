@@ -12,12 +12,14 @@ public class ClientAffectSelectHandler implements EventHandler<ActionEvent>{
 	}
 	@Override
 	public void handle(ActionEvent event) {
-		CardButton target = (CardButton)event.getSource();
-		
+		CardButton cb = (CardButton)event.getSource();
+		GameCommand gc = new GameCommand("affectTarget");
+		gc.displayMinion1 = cb.minion;
+		gc.displayMinion1.cardPosition = fxd.displayGameState.friendlyFieldMinions.indexOf(cb.minion);
+		if(gc.displayMinion1.cardPosition < 0){
+			gc.displayMinion1.cardPosition = fxd.displayGameState.enemyFieldMinions.indexOf(cb.minion);
+		}
+		assert(gc.displayMinion1.cardPosition > -1);
+		fxd.client.write(gc);
 	}
-	//this class should send an object to the
-	//server gamestate AffectSelectHandler so
-	//that it can be processed
-	
-	
 }

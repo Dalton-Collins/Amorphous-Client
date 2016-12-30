@@ -22,9 +22,10 @@ public class ClientAttackHandler implements EventHandler<ActionEvent>{
 			GameCommand gc = new GameCommand("attack");
 			gc.displayMinion1 = fxd.attackingMinion;
 			gc.displayMinion1.cardPosition = fxd.displayGameState.friendlyFieldMinions.indexOf(fxd.attackingMinion);
-					
+			assert(gc.displayMinion1.cardPosition > -1);
 			gc.displayMinion2 = cb.minion;
 			gc.displayMinion2.cardPosition = fxd.displayGameState.enemyFieldMinions.indexOf(cb.minion);
+			assert(gc.displayMinion2.cardPosition > -1);
 			fxd.attackingMinion = null;
 			fxd.client.write(gc);
 		}

@@ -14,8 +14,8 @@ public class DisplayGameState implements Serializable{
 	ArrayList<DisplayMinion> enemyFieldMinions;
 	
 	int enemyHandSize;
-	boolean selectingAttackTarget;
-	boolean selectingAffectTarget;
+	public boolean selectingAttackTarget;
+	public boolean selectingAffectTarget;
 	
 	boolean yourTurn;//true if the player given this object is the turn player
 	
