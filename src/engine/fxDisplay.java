@@ -37,6 +37,8 @@ public class fxDisplay extends Application {
 	
 	//display states
 	boolean displayingDetailedCard = false;
+	boolean affectSelection = false;//if this is true then the server is waiting on
+									//input from this client to get an affect target
 	DisplayMinion attackingMinion = null;
 	Text detailedCard;
 	
@@ -129,9 +131,13 @@ public class fxDisplay extends Application {
     }
     
     public void updateDisplay(DisplayGameState dgs){
+    	displayGameState = dgs;
     	if(dgs.selectingAffectTarget){
     		affectSelection(dgs);
     		return;
+    	}
+    	if(affectSelection){
+    		return;//do not update the display if input is needed for affect resolution
     	}
     	displayGameState = dgs;
     	
@@ -160,7 +166,7 @@ public class fxDisplay extends Application {
     
     public void affectSelection(DisplayGameState dgs){
     	System.out.println("enter affect selection");
-    	
+    	affectSelection = true;
     	StackPane boardStack = boardLayoutMaker.getLayout();
     	mainStack = boardStack;
     	BorderPane boardLayout = (BorderPane) boardStack.getChildren().get(0);

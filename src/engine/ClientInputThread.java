@@ -31,7 +31,7 @@ public class ClientInputThread extends Thread{
 			ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 			while(true){
 				DisplayGameState dgs = (DisplayGameState)objectInputStream.readObject();
-				System.out.println("got displaygamestate for updating");
+				//System.out.println("got displaygamestate for updating");
 				Platform.runLater(new Runnable() {
 				    @Override
 				    public void run() {
