@@ -31,6 +31,10 @@ public class fxDisplay extends Application {
 	
 	Stage primaryStage;
 	StackPane mainStack;
+	Scene boardScene;
+	BorderPane gameSelectLayout;
+	
+	
 	
 	BoardLayoutMaker boardLayoutMaker;
 	MinionToButton minionToButton;
@@ -82,15 +86,25 @@ public class fxDisplay extends Application {
     	
     	
     	//layouts
-        StackPane titleLayout = new StackPane();
-        GridPane titleButtons = new GridPane();
-        titleLayout.getChildren().add(titleButtons);
         
         boardLayoutMaker = new BoardLayoutMaker();
         StackPane boardLayout = boardLayoutMaker.getLayout();
         //scenes
+        Scene boardScenee = new Scene (boardLayout, 1200, 1000);
+        boardScene = boardScenee;
+        
+        openTitleScene();
+        primaryStage.show();
+        
+    }
+    void openTitleScene(){
+    	//layouts
+        StackPane titleLayout = new StackPane();
+        GridPane titleButtons = new GridPane();
+        titleLayout.getChildren().add(titleButtons);
+        
+        //scenes
         Scene titleScreen = new Scene (titleLayout, 1200, 1000);
-        Scene boardScene = new Scene (boardLayout, 1200, 1000);
         
         //buttons
         
@@ -107,27 +121,74 @@ public class fxDisplay extends Application {
         });
         
         Button joinbtn = new Button();
-        joinbtn.setText("Join Game");
+        joinbtn.setText("Find Game");
         joinbtn.setOnAction(new EventHandler<ActionEvent>() {
        	 
             @Override
             public void handle(ActionEvent event) {
-            	primaryStage.setScene(boardScene);
-            	GameCommand gc = new GameCommand("joinGame");
-            	gc.n = 0;//this needs to change later to accomodate more games.
-				client.write(gc);
+            	openGameSelectScene();
             }
         });
-        
-        
         
         //layout buttons
         titleButtons.add(strtbtn, 10, 0);
         titleButtons.add(joinbtn, 10, 30);
         
         primaryStage.setScene(titleScreen);
-        primaryStage.show();
         
+    }
+    
+    public void openGameSelectScene(){
+    	gameSelectLayout = new BorderPane();
+    	Scene gameSelectScene = new Scene(gameSelectLayout, 1200, 1000);
+    	
+    	VBox gamesList = new VBox();
+    	HBox menuButtons = new HBox();
+    	
+    	gameSelectLayout.setLeft(gamesList);
+    	gameSelectLayout.setTop(menuButtons);
+    	
+    	//buttons
+    	Button refresh = new Button();
+        refresh.setText("Refresh List");
+        refresh.setOnAction(new EventHandler<ActionEvent>() {
+       	 
+            @Override
+            public void handle(ActionEvent event) {
+            	GameCommand gc = new GameCommand("refreshGames");
+				client.write(gc);
+            }
+        });
+        
+        //add buttons
+        menuButtons.getChildren().add(refresh);
+        
+        GameCommand gc = new GameCommand("refreshGames");
+		client.write(gc);
+        
+    	primaryStage.setScene(gameSelectScene);
+    }
+    
+    public void refreshGamesList(ArrayList<GameIdentifier> openGames){
+    	VBox gamesList = new VBox();
+    	for(GameIdentifier game : openGames){
+    		MenuButton joinableGame = new MenuButton();
+    		joinableGame.n = game.id;
+    		joinableGame.setText(game.name);
+    		joinableGame.setOnAction(new EventHandler<ActionEvent>() {
+           	 
+                @Override
+                public void handle(ActionEvent event) {
+                	MenuButton btn = (MenuButton) event.getSource();
+                	GameCommand gc = new GameCommand("joinGame");
+                	gc.n = btn.n;
+    				client.write(gc);
+                }
+            });
+    		
+    		gamesList.getChildren().add(joinableGame);
+    	}
+    	gameSelectLayout.setLeft(gamesList);
     }
     
     public void updateDisplay(DisplayGameState dgs){

@@ -38,6 +38,9 @@ public class MinionToButton {
 		}else{
 			cb.setStyle("-fx-font: 20 arial; -fx-base: #ee1122;");
 		}
+		if(m.attacksThisTurn >= m.maxAttacks || m.summoningSickness){
+			cb.setStyle("-fx-font: 20 arial; -fx-base: #777b82;");
+		}
 		cb.setOnAction(fxd.clientAttackHandler);
 		cb.setOnMouseEntered(fxd.cardViewHandler);
 		cb.setOnMouseExited(fxd.cardViewHandler);
@@ -56,7 +59,6 @@ public class MinionToButton {
 		}else{
 			cb.setStyle("-fx-font: 20 arial; -fx-base: #e4fc6c;");
 		}
-		
 		cb.setOnAction(fxd.clientAffectSelectHandler);
 		cb.setOnMouseEntered(fxd.cardViewHandler);
 		cb.setOnMouseExited(fxd.cardViewHandler);

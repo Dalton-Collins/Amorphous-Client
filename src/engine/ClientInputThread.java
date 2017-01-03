@@ -3,6 +3,7 @@ package engine;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import javafx.application.Platform;
 
@@ -22,23 +23,36 @@ public class ClientInputThread extends Thread{
 		client = clientt;
 		host = hostt;
 		port = portt;
+		ArrayList<GameIdentifier> ide;
 	}
 	
 	public void run(){
 		
 		try {
-			Socket socket = new Socket(host, port);
+			socket = new Socket(host, port);
 			ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 			while(true){
-				DisplayGameState dgs = (DisplayGameState)objectInputStream.readObject();
-				//System.out.println("got displaygamestate for updating");
-				Platform.runLater(new Runnable() {
-				    @Override
-				    public void run() {
-				    	fxd.updateDisplay(dgs);
-				    }
-				});
-				
+				Object o;
+				if((o = objectInputStream.readObject()).getClass() == DisplayGameState.class){
+					System.out.println("got a dispaly object for updating");
+					DisplayGameState dgs = (DisplayGameState)objectInputStream.readObject();
+					//System.out.println("got displaygamestate for updating");
+					Platform.runLater(new Runnable() {
+					    @Override
+					    public void run() {
+					    	fxd.updateDisplay(dgs);
+					    }
+					});
+				}else if((o = objectInputStream.readObject()).getClass() == ArrayList.class){
+					System.out.println("got an arraylist of games");
+					ArrayList<GameIdentifier> games = (ArrayList<GameIdentifier>)o;
+					Platform.runLater(new Runnable() {
+					    @Override
+					    public void run() {
+					    	fxd.refreshGamesList(games);
+					    }
+					});
+				}
 			}
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
