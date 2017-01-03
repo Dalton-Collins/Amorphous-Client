@@ -15,13 +15,8 @@ public class ClientAffectSelectHandler implements EventHandler<ActionEvent>{
 		CardButton cb = (CardButton)event.getSource();
 		GameCommand gc = new GameCommand("affectTarget");
 		gc.displayMinion1 = cb.minion;
-		gc.displayMinion1.cardPosition = fxd.displayGameState.friendlyFieldMinions.indexOf(cb.minion);
-		if(gc.displayMinion1.cardPosition == -1){
-			gc.displayMinion1.cardPosition = fxd.displayGameState.enemyFieldMinions.indexOf(cb.minion);
-		}
-		assert(gc.displayMinion1.cardPosition != -1);
-		System.out.println("card position: " + gc.displayMinion1.cardPosition);
 		System.out.println("about to send affect select command to server thread");
+		fxd.affectSelection = false;
 		fxd.client.write(gc);
 	}
 }

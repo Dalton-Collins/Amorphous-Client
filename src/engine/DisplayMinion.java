@@ -6,6 +6,7 @@ public class DisplayMinion implements Serializable{
 	
 	private static final long serialVersionUID = -740483854398002466L;
 	
+	public Long uniqueId;
 	public String name;
 	public int cost;
 	public int atk;
@@ -20,7 +21,6 @@ public class DisplayMinion implements Serializable{
 	public int maxAttacks = 1;
 	boolean summoningSickness;
 	
-	public int cardPosition;
 	public int fieldLocation;//0 for my field, 1 for enemys field
 	
 }

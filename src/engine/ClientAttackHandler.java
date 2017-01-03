@@ -21,19 +21,7 @@ public class ClientAttackHandler implements EventHandler<ActionEvent>{
 			CardButton cb = (CardButton)event.getSource();
 			GameCommand gc = new GameCommand("attack");
 			gc.displayMinion1 = fxd.attackingMinion;
-			gc.displayMinion1.cardPosition = fxd.displayGameState.friendlyFieldMinions.indexOf(fxd.attackingMinion);
-			if(gc.displayMinion1.cardPosition == -1){
-				System.out.println("couldn't find minion to attack with");
-				return;
-			}
-			assert(gc.displayMinion1.cardPosition > -1);
 			gc.displayMinion2 = cb.minion;
-			gc.displayMinion2.cardPosition = fxd.displayGameState.enemyFieldMinions.indexOf(cb.minion);
-			if(gc.displayMinion2.cardPosition == -1){
-				System.out.println("couldn't find minion to attack");
-				return;
-			}
-			assert(gc.displayMinion2.cardPosition > -1);
 			fxd.attackingMinion = null;
 			fxd.client.write(gc);
 		}

@@ -16,7 +16,6 @@ public class ClientSummonHandler implements EventHandler<ActionEvent>{
 		CardButton cb = (CardButton)event.getSource();
 		GameCommand gc = new GameCommand("summon");
 		gc.displayMinion1 = cb.minion;
-		gc.displayMinion1.cardPosition = fxd.displayGameState.handMinions.indexOf(cb.minion);
 		fxd.client.write(gc);
 	}
 }
