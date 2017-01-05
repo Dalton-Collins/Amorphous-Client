@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -131,6 +132,7 @@ public class fxDisplay extends Application {
         });
         
         //layout buttons
+        titleButtons.setAlignment(Pos.CENTER);
         titleButtons.add(strtbtn, 10, 0);
         titleButtons.add(joinbtn, 10, 30);
         
@@ -192,6 +194,15 @@ public class fxDisplay extends Application {
     }
     
     public void updateDisplay(DisplayGameState dgs){
+    	if(dgs.winner == 1){
+    		//display you win!
+    		System.out.println("you win");
+    		openGameSelectScene();
+    	}else if(dgs.winner == 2){
+    		//display you lose!
+    		System.out.println("you lose");
+    		openGameSelectScene();
+    	}
     	displayGameState = dgs;
     	if(dgs.selectingAffectTarget){
     		affectSelection(dgs);
@@ -212,6 +223,18 @@ public class fxDisplay extends Application {
     	if(dgs.yourTurn){
     		setEndTurnButton(boardLayout);
     	}
+    	Button concede = new Button();
+        concede.setText("Concede");
+        concede.setFont(new Font("Arial", 18));
+        concede.setOnAction(new EventHandler<ActionEvent>() {
+          	 
+            @Override
+            public void handle(ActionEvent event) {
+            	GameCommand gc = new GameCommand("concede");
+				client.write(gc);
+            }
+        });
+        ((VBox)boardLayout.getRight()).getChildren().add(concede);
         
         //labels
         //update mana/life
@@ -249,6 +272,9 @@ public class fxDisplay extends Application {
         		gs.affectStack.afterSelectionAffect = null;
         		updateDisplay();
         		*/
+        		GameCommand gc = new GameCommand("cancelAffect");
+        		client.write(gc);
+        		
         	}
         });
         ((VBox)boardLayout.getLeft()).getChildren().add(cancelEffectSelection);

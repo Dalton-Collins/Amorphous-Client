@@ -13,12 +13,12 @@ public class DisplayGameState implements Serializable{
 	ArrayList<DisplayMinion> friendlyFieldMinions;
 	ArrayList<DisplayMinion> enemyFieldMinions;
 	
-	int enemyHandSize;
+	public int winner = 0; //1 for you win, 2 for enemy wins
 	public boolean selectingAttackTarget;
 	public boolean selectingAffectTarget;
 	
 	boolean yourTurn;//true if the player given this object is the turn player
-	
+	int enemyHandSize;
 	int mana;
 	int maxMana;
 	int life;
