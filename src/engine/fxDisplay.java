@@ -198,10 +198,12 @@ public class fxDisplay extends Application {
     		//display you win!
     		System.out.println("you win");
     		openGameSelectScene();
+    		return;
     	}else if(dgs.winner == 2){
     		//display you lose!
     		System.out.println("you lose");
     		openGameSelectScene();
+    		return;
     	}
     	displayGameState = dgs;
     	if(dgs.selectingAffectTarget){
