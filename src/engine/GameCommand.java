@@ -9,6 +9,8 @@ public class GameCommand implements Serializable{
 	DisplayMinion displayMinion1;
 	DisplayMinion displayMinion2;
 	int n;
+	String s1;
+	String s2;
 	
 	public GameCommand(String cmdtype){
 		commandType = cmdtype;

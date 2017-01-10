@@ -12,6 +12,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -21,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
  
@@ -94,9 +97,85 @@ public class fxDisplay extends Application {
         Scene boardScenee = new Scene (boardLayout, 1200, 1000);
         boardScene = boardScenee;
         
-        openTitleScene();
+        openLoginScene();
         primaryStage.show();
         
+    }
+    void openLoginScene(){
+    	
+    	//layout
+    	GridPane loginGrid = new GridPane();
+    	loginGrid.setAlignment(Pos.CENTER);
+    	loginGrid.setHgap(10);
+    	loginGrid.setVgap(10);
+    	loginGrid.setPadding(new Insets(25, 25, 25, 25));
+    	
+    	Text scenetitle = new Text("Amorphous");
+    	scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+    	loginGrid.add(scenetitle, 0, 0, 2, 1);
+
+    	Label userName = new Label("User Name:");
+    	loginGrid.add(userName, 0, 1);
+
+    	TextField userNameField = new TextField();
+    	userNameField.setPromptText("Enter Account Name");
+    	loginGrid.add(userNameField, 1, 1);
+
+    	Label pw = new Label("Password:");
+    	loginGrid.add(pw, 0, 2);
+
+    	PasswordField passwordField = new PasswordField();
+    	passwordField.setPromptText("Enter Password");
+    	loginGrid.add(passwordField, 1, 2);
+    	
+    	//scene
+    	Scene loginScene = new Scene(loginGrid, 1200, 1000);
+    	
+    	//buttons
+    	Button signInBtn = new Button("Sign in");
+    	signInBtn.setOnAction(new EventHandler<ActionEvent>() {
+       	 
+            @Override
+            public void handle(ActionEvent event) {
+            	String username = null;
+            	String password = null;
+            	if(userNameField.getText() != null && !userNameField.getText().isEmpty()){
+            		username = userNameField.getText();
+            	}else{
+            		//need to display this message on the display
+            		System.out.println("no account name entered");
+            		return;
+            	}
+            	if(passwordField.getText() != null && !passwordField.getText().isEmpty()){
+            		password = passwordField.getText();
+            	}else{
+            		//need to display this message on the display
+            		System.out.println("no password entered");
+            		return;
+            	}
+            	GameCommand gc = new GameCommand("accountInfo");
+            	gc.s1 = username;
+            	gc.s2 = password;
+				client.write(gc);
+            }
+        });
+    	HBox hbBtn = new HBox(10);
+    	hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+    	hbBtn.getChildren().add(signInBtn);
+    	loginGrid.add(hbBtn, 1, 4);
+    	
+    	Button strtbtn = new Button();
+        strtbtn.setText("Title Screen");
+        strtbtn.setOnAction(new EventHandler<ActionEvent>() {
+        	 
+            @Override
+            public void handle(ActionEvent event) {
+            	openTitleScene();
+            }
+        });
+        loginGrid.add(strtbtn, 2, 4);
+    	
+    	primaryStage.setScene(loginScene);
     }
     void openTitleScene(){
     	//layouts
@@ -236,7 +315,7 @@ public class fxDisplay extends Application {
 				client.write(gc);
             }
         });
-        ((VBox)boardLayout.getRight()).getChildren().add(concede);
+        ((VBox)boardLayout.getLeft()).getChildren().add(concede);
         
         //labels
         //update mana/life
