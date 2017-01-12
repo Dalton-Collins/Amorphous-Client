@@ -37,6 +37,7 @@ public class fxDisplay extends Application {
 	StackPane mainStack;
 	Scene boardScene;
 	BorderPane gameSelectLayout;
+	GridPane loginLayout;
 	
 	
 	
@@ -162,8 +163,9 @@ public class fxDisplay extends Application {
     	HBox hbBtn = new HBox(10);
     	hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
     	hbBtn.getChildren().add(signInBtn);
-    	loginGrid.add(hbBtn, 1, 4);
+    	loginGrid.add(hbBtn, 0, 4);
     	
+    	/*
     	Button strtbtn = new Button();
         strtbtn.setText("Title Screen");
         strtbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -173,9 +175,16 @@ public class fxDisplay extends Application {
             	openTitleScene();
             }
         });
-        loginGrid.add(strtbtn, 2, 4);
+        loginGrid.add(strtbtn, 1, 4);
+        */
+        loginLayout = loginGrid;
     	
     	primaryStage.setScene(loginScene);
+    }
+    
+    void loginFailed(){
+    	Label loginFailed = new Label("Incorrect Account Name or Password");
+    	loginLayout.add(loginFailed, 1, 5);
     }
     void openTitleScene(){
     	//layouts

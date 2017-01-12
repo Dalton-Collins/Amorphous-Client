@@ -32,8 +32,8 @@ public class ClientInputThread extends Thread{
 			socket = new Socket(host, port);
 			ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 			while(true){
-				Object o;
-				if((o = objectInputStream.readObject()).getClass() == DisplayGameState.class){
+				Object o = objectInputStream.readObject();
+				if(o.getClass() == DisplayGameState.class){
 					System.out.println("got a dispaly object for updating");
 					DisplayGameState dgs = (DisplayGameState)objectInputStream.readObject();
 					//System.out.println("got displaygamestate for updating");
@@ -43,7 +43,7 @@ public class ClientInputThread extends Thread{
 					    	fxd.updateDisplay(dgs);
 					    }
 					});
-				}else if((o = objectInputStream.readObject()).getClass() == ArrayList.class){
+				}else if(o.getClass() == ArrayList.class){
 					System.out.println("got an arraylist of games");
 					ArrayList<GameIdentifier> games = (ArrayList<GameIdentifier>)o;
 					Platform.runLater(new Runnable() {
@@ -52,6 +52,25 @@ public class ClientInputThread extends Thread{
 					    	fxd.refreshGamesList(games);
 					    }
 					});
+				}else if(o.getClass() == String.class){
+					String s = (String)o;
+					if(s.equals("loginFailed")){
+						System.out.println("login failed");
+						Platform.runLater(new Runnable() {
+						    @Override
+						    public void run() {
+						    	fxd.loginFailed();
+						    }
+						});
+					}else if(s.equals("loginSuccessful")){
+						System.out.println("login Successful");
+						Platform.runLater(new Runnable() {
+						    @Override
+						    public void run() {
+						    	fxd.openTitleScene();
+						    }
+						});
+					}
 				}
 			}
 		} catch (IOException | ClassNotFoundException e) {
