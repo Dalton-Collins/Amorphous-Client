@@ -509,7 +509,8 @@ public class fxDisplay extends Application {
     
     void setManaLife(DisplayGameState dgs, BorderPane boardLayout){
     	Label p2Mana = new Label();
-        p2Mana.setText("Mana: " + dgs.enemyMana);
+        p2Mana.setText("Mana: " + dgs.enemyRedMana + dgs.enemyOrangeMana + dgs.enemyYellowMana
+        		+ dgs.enemyGreenMana + dgs.enemyBlueMana + dgs.enemyPurpleMana);
         p2Mana.setFont(new Font("Arial", 25));
         p2Mana.setTextFill(Color.web("#ff38c3"));
         ((VBox)boardLayout.getLeft()).getChildren().add(p2Mana);
@@ -527,7 +528,8 @@ public class fxDisplay extends Application {
         ((VBox)boardLayout.getLeft()).getChildren().add(p1Life);
         
         Label p1Mana = new Label();
-        p1Mana.setText("Mana: " + dgs.mana);
+        p1Mana.setText("Mana: " + dgs.redMana + dgs.orangeMana + dgs.yellowMana
+        		+ dgs.greenMana + dgs.blueMana + dgs.purpleMana);
         p1Mana.setFont(new Font("Arial", 25));
         p1Mana.setTextFill(Color.web("#38d0ff"));
         ((VBox)boardLayout.getLeft()).getChildren().add(p1Mana);

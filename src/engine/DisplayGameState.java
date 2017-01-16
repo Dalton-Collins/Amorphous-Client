@@ -19,12 +19,36 @@ public class DisplayGameState implements Serializable{
 	
 	boolean yourTurn;//true if the player given this object is the turn player
 	int enemyHandSize;
-	int mana;
-	int maxMana;
+	
+	int redMana;
+	int orangeMana;
+	int yellowMana;
+	int greenMana;
+	int blueMana;
+	int purpleMana;
+	
+	int maxRedMana;
+	int maxOrangeMana;
+	int maxYellowMana;
+	int maxGreenMana;
+	int maxBlueMana;
+	int maxPurpleMana;
 	int life;
 	
-	int enemyMana;
-	int enemyMaxMana;
+	int enemyRedMana;
+	int enemyOrangeMana;
+	int enemyYellowMana;
+	int enemyGreenMana;
+	int enemyBlueMana;
+	int enemyPurpleMana;
+	
+	int enemyMaxRedMana;
+	int enemyMaxOrangeMana;
+	int enemyMaxYellowMana;
+	int enemyMaxGreenMana;
+	int enemyMaxBlueMana;
+	int enemyMaxPurpleMana;
+	
 	int enemyLife;
 	
 	public DisplayGameState(){
