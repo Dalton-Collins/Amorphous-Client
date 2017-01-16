@@ -14,7 +14,8 @@ public class MinionToButton {
 	public Button convertForHand(DisplayMinion m){
 		
 		String cardText = "";
-		cardText = cardText + m.name + " Cost " + m.cost + "\n \n \n " + 
+		cardText = cardText + m.name + " Cost " + m.redCost + m.orangeCost 
+		    	+ m.yellowCost + m.greenCost + m.blueCost + m.purpleCost + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText);
 		cb.minion = m;
@@ -29,7 +30,8 @@ public class MinionToButton {
 	public Button convertForField(DisplayMinion m, int color){
 		
 		String cardText = "";
-		cardText = cardText + m.name + " Cost " + m.cost + "\n \n \n " + 
+		cardText = cardText + m.name + " Cost " + m.redCost + m.orangeCost 
+		    	+ m.yellowCost + m.greenCost + m.blueCost + m.purpleCost+ "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText);
 		cb.minion = m;
@@ -50,7 +52,8 @@ public class MinionToButton {
 	public Button convertForEffectSelection(DisplayMinion m){
 		
 		String cardText = "";
-		cardText = cardText + m.name + " Cost " + m.cost + "\n \n \n " + 
+		cardText = cardText + m.name + " Cost " + m.redCost + m.orangeCost 
+		    	+ m.yellowCost + m.greenCost + m.blueCost + m.purpleCost +  "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText);
 		cb.minion = m;
@@ -67,7 +70,8 @@ public class MinionToButton {
 	
 	public Button convertForInaction(DisplayMinion m){
 		String cardText = "";
-		cardText = cardText + m.name + " Cost " + m.cost + "\n \n \n " + 
+		cardText = cardText + m.name + " Cost " + m.redCost + m.orangeCost 
+		    	+ m.yellowCost + m.greenCost + m.blueCost + m.purpleCost +  "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText);
 		cb.minion = m;
