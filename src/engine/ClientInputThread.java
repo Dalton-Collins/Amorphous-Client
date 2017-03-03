@@ -24,6 +24,9 @@ public class ClientInputThread extends Thread{
 		host = hostt;
 		port = portt;
 		ArrayList<GameIdentifier> ide;
+		assert fxdd != null;
+		assert clientt != null;
+		assert hostt != null;
 	}
 	
 	public void run(){

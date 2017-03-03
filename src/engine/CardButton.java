@@ -7,5 +7,6 @@ public class CardButton extends Button{
 	DisplayMinion minion2;
 	public CardButton(String text){
 		super(text);
+	assert text != null;
 	}
 }

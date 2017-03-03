@@ -8,6 +8,7 @@ public class MinionToButton {
 	
 	public MinionToButton(fxDisplay fxdd){
 		fxd = fxdd;
+		assert fxdd != null;
 	}
 	
 	//this button is in the hand and can summon cards
