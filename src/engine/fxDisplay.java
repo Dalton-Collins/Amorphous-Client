@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -68,8 +70,8 @@ public class fxDisplay extends Application {
     
     @Override
     public void start(Stage primaryStagee) throws UnknownHostException, IOException {
-    	
-    	client = new Client(this, "player", "localhost", 9082);
+    	//CHANGE THIS FOR SERVER &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+    	client = new Client(this, "player", "localhost", 9083);
     	client.connect();
     	
     	
@@ -99,8 +101,18 @@ public class fxDisplay extends Application {
         boardScene = boardScenee;
         
         openLoginScene();
+
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setX(primaryScreenBounds.getMinX());
+        primaryStage.setY(primaryScreenBounds.getMinY());
+        primaryStage.setWidth(primaryScreenBounds.getWidth());
+        primaryStage.setHeight(primaryScreenBounds.getHeight());
         primaryStage.show();
-        
+/*
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth())/5);
+        primaryStage.setY((primScreenBounds.getWidth()- primaryStage.getHeight()));
+        */
     }
     void openLoginScene(){
     	
@@ -131,8 +143,8 @@ public class fxDisplay extends Application {
     	
     	//scene
     	Scene loginScene = new Scene(loginGrid, 1200, 1000);
-    	
-    	//buttons
+
+        //buttons
     	Button signInBtn = new Button("Sign in");
     	signInBtn.setOnAction(new EventHandler<ActionEvent>() {
        	 
@@ -227,12 +239,14 @@ public class fxDisplay extends Application {
         primaryStage.setScene(titleScreen);
         
     }
-    
+    // HERE IS THE SELECT GAME MENU &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     public void openGameSelectScene(){
     	gameSelectLayout = new BorderPane();
     	Scene gameSelectScene = new Scene(gameSelectLayout, 1200, 1000);
-    	
-    	VBox gamesList = new VBox();
+
+
+
+		VBox gamesList = new VBox();
     	HBox menuButtons = new HBox();
     	
     	gameSelectLayout.setLeft(gamesList);
