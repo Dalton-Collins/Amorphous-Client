@@ -27,6 +27,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javax.swing.UIManager.*;
 
  
 public class fxDisplay extends Application {
@@ -145,9 +146,35 @@ public class fxDisplay extends Application {
     	Scene loginScene = new Scene(loginGrid, 1200, 1000);
 
         //buttons
+		Button regInBtn = new Button("Register");
+		regInBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				String username = null;
+				String password = null;
+				if(userNameField.getText() != null && !userNameField.getText().isEmpty()){
+					username = userNameField.getText();
+				}else{
+					//need to display this message on the display
+					System.out.println("no account name entered");
+					return;
+				}
+				if(passwordField.getText() != null && !passwordField.getText().isEmpty()){
+					password = passwordField.getText();
+				}else{
+					//need to display this message on the display
+					System.out.println("no password entered");
+					return;
+				}
+				GameCommand gc = new GameCommand("regME");
+				gc.s1 = username;
+				gc.s2 = password;
+				client.write(gc);
+			}
+		});
     	Button signInBtn = new Button("Sign in");
     	signInBtn.setOnAction(new EventHandler<ActionEvent>() {
-       	 
+
             @Override
             public void handle(ActionEvent event) {
             	String username = null;
@@ -172,9 +199,14 @@ public class fxDisplay extends Application {
 				client.write(gc);
             }
         });
+
+
+
+
     	HBox hbBtn = new HBox(10);
     	hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
     	hbBtn.getChildren().add(signInBtn);
+		hbBtn.getChildren().add(regInBtn);
     	loginGrid.add(hbBtn, 0, 4);
     	
     	/*
