@@ -285,6 +285,14 @@ public class fxDisplay extends Application {
     	gameSelectLayout.setTop(menuButtons);
     	
     	//buttons
+		Button back = new Button();
+		back.setText("Back");
+		back.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				openTitleScene();
+			}
+		});
     	Button refresh = new Button();
         refresh.setText("Refresh List");
         refresh.setOnAction(new EventHandler<ActionEvent>() {
@@ -298,7 +306,7 @@ public class fxDisplay extends Application {
         
         //add buttons
         menuButtons.getChildren().add(refresh);
-        
+		menuButtons.getChildren().add(back);
         GameCommand gc = new GameCommand("refreshGames");
 		client.write(gc);
         
