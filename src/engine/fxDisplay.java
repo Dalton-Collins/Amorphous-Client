@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -25,6 +27,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javax.swing.UIManager.*;
 
  
 public class fxDisplay extends Application {
@@ -68,8 +71,8 @@ public class fxDisplay extends Application {
     
     @Override
     public void start(Stage primaryStagee) throws UnknownHostException, IOException {
-    	
-    	client = new Client(this, "player", "localhost", 9082);
+    	//CHANGE THIS FOR SERVER &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+    	client = new Client(this, "player", "localhost", 9083);
     	client.connect();
     	
     	
@@ -99,8 +102,18 @@ public class fxDisplay extends Application {
         boardScene = boardScenee;
         
         openLoginScene();
+
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setX(primaryScreenBounds.getMinX());
+        primaryStage.setY(primaryScreenBounds.getMinY());
+        primaryStage.setWidth(primaryScreenBounds.getWidth());
+        primaryStage.setHeight(primaryScreenBounds.getHeight());
         primaryStage.show();
-        
+/*
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth())/5);
+        primaryStage.setY((primScreenBounds.getWidth()- primaryStage.getHeight()));
+        */
     }
     void openLoginScene(){
     	
@@ -131,11 +144,37 @@ public class fxDisplay extends Application {
     	
     	//scene
     	Scene loginScene = new Scene(loginGrid, 1200, 1000);
-    	
-    	//buttons
+
+        //buttons
+		Button regInBtn = new Button("Register");
+		regInBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				String username = null;
+				String password = null;
+				if(userNameField.getText() != null && !userNameField.getText().isEmpty()){
+					username = userNameField.getText();
+				}else{
+					//need to display this message on the display
+					System.out.println("no account name entered");
+					return;
+				}
+				if(passwordField.getText() != null && !passwordField.getText().isEmpty()){
+					password = passwordField.getText();
+				}else{
+					//need to display this message on the display
+					System.out.println("no password entered");
+					return;
+				}
+				GameCommand gc = new GameCommand("regME");
+				gc.s1 = username;
+				gc.s2 = password;
+				client.write(gc);
+			}
+		});
     	Button signInBtn = new Button("Sign in");
     	signInBtn.setOnAction(new EventHandler<ActionEvent>() {
-       	 
+
             @Override
             public void handle(ActionEvent event) {
             	String username = null;
@@ -160,9 +199,14 @@ public class fxDisplay extends Application {
 				client.write(gc);
             }
         });
+
+
+
+
     	HBox hbBtn = new HBox(10);
     	hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
     	hbBtn.getChildren().add(signInBtn);
+		hbBtn.getChildren().add(regInBtn);
     	loginGrid.add(hbBtn, 0, 4);
     	
     	/*
@@ -227,18 +271,28 @@ public class fxDisplay extends Application {
         primaryStage.setScene(titleScreen);
         
     }
-    
+    // HERE IS THE SELECT GAME MENU &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     public void openGameSelectScene(){
     	gameSelectLayout = new BorderPane();
     	Scene gameSelectScene = new Scene(gameSelectLayout, 1200, 1000);
-    	
-    	VBox gamesList = new VBox();
+
+
+
+		VBox gamesList = new VBox();
     	HBox menuButtons = new HBox();
     	
     	gameSelectLayout.setLeft(gamesList);
     	gameSelectLayout.setTop(menuButtons);
     	
     	//buttons
+		Button back = new Button();
+		back.setText("Back");
+		back.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				openTitleScene();
+			}
+		});
     	Button refresh = new Button();
         refresh.setText("Refresh List");
         refresh.setOnAction(new EventHandler<ActionEvent>() {
@@ -252,7 +306,7 @@ public class fxDisplay extends Application {
         
         //add buttons
         menuButtons.getChildren().add(refresh);
-        
+		menuButtons.getChildren().add(back);
         GameCommand gc = new GameCommand("refreshGames");
 		client.write(gc);
         
