@@ -72,7 +72,7 @@ public class fxDisplay extends Application {
     @Override
     public void start(Stage primaryStagee) throws UnknownHostException, IOException {
     	//CHANGE THIS FOR SERVER &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    	client = new Client(this, "player", "localhost", 9083);
+    	client = new Client(this, "player", "localhost", 9082);
     	client.connect();
     	
     	
@@ -482,6 +482,7 @@ public class fxDisplay extends Application {
     		setPlayerDamageButton(boardLayout);
     	}
     	for(DisplayMinion m: dgs.friendlyFieldMinions){
+    		
     		Button card = minionToButton.convertForField(m, 0);
     		GridPane gridPane = (GridPane) boardLayout.getCenter();
     		HBox bottomFieldHBox = (HBox) gridPane.getChildren().get(0);
