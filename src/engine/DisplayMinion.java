@@ -15,7 +15,6 @@ public class DisplayMinion implements Serializable{
 	public int blueCost;
 	public int purpleCost;
 	public int atk;
-	public int baseAtk;
 	public int health;
 	public int maxHealth;
 	public String type;// curent types: humanoid beast machine

@@ -12,6 +12,9 @@ public class DisplayGameState implements Serializable{
 	ArrayList<DisplayMinion> handMinions;
 	ArrayList<DisplayMinion> friendlyFieldMinions;
 	ArrayList<DisplayMinion> enemyFieldMinions;
+
+	DisplayMinion commander;
+	DisplayMinion enemyCommander;
 	
 	public int winner = 0; //1 for you win, 2 for enemy wins
 	public boolean selectingAttackTarget;

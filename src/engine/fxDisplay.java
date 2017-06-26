@@ -436,7 +436,7 @@ public class fxDisplay extends Application {
     	}
     	
     	for(DisplayMinion m: dgs.enemyFieldMinions){
-    		Button card = minionToButton.convertForField(m, 1);
+    		Button card = minionToButton.convertForEnemyField(m, 1);
     		GridPane gridPane = (GridPane) boardLayout.getCenter();
     		HBox topFieldHBox = (HBox) gridPane.getChildren().get(1);
     		topFieldHBox.getChildren().add(card);
