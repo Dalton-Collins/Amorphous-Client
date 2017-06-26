@@ -37,7 +37,7 @@ public class ClientInputThread extends Thread{
 			while(true){
 				Object o = objectInputStream.readObject();
 				if(o.getClass() == DisplayGameState.class){
-					System.out.println("got a dispaly object for updating");
+					System.out.println("got a display object for updating");
 					DisplayGameState dgs = (DisplayGameState)objectInputStream.readObject();
 					//System.out.println("got displaygamestate for updating");
 					Platform.runLater(new Runnable() {
@@ -55,8 +55,14 @@ public class ClientInputThread extends Thread{
 					    	fxd.refreshGamesList(games);
 					    }
 					});
-				}else if(o.getClass() == String.class){
+				}else if(o.getClass() == Integer.class){
+					GameCommand gc=new GameCommand("ping");
+					gc.n=(Integer)o;
+					client.write(gc); //Return thread index for ping
+				}
+				else if(o.getClass() == String.class){
 					String s = (String)o;
+					
 					if(s.equals("loginFailed")){
 						System.out.println("login failed");
 						Platform.runLater(new Runnable() {
