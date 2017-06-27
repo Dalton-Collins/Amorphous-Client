@@ -72,7 +72,7 @@ public class fxDisplay extends Application {
     @Override
     public void start(Stage primaryStagee) throws UnknownHostException, IOException {
     	//CHANGE THIS FOR SERVER &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    	client = new Client(this, "player", "localhost", 9083);
+    	client = new Client(this, "player", "localhost", 9082);
     	client.connect();
     	
     	
