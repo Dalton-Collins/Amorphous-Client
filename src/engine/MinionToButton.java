@@ -66,6 +66,7 @@ public Button convertForEnemyField(DisplayMinion m, int color){
 		if(m.attacksThisTurn >= m.maxAttacks || m.summoningSickness){
 			cb.setStyle("-fx-font: 20 arial; -fx-base: #777b82;");
 		}
+		cb.setOnAction(fxd.clientAttackHandler);
 		cb.setOnMouseEntered(fxd.cardViewHandler);
 		cb.setOnMouseExited(fxd.cardViewHandler);
 		return cb;
